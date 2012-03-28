@@ -38,15 +38,29 @@ class MainWindow(wx.Frame):
 		menuBar.Append(editmenu, "&Edit")
 		menuBar.Append(toolsmenu, "&Tools")
 		menuBar.Append(helpmenu, "&Help")
-		self.SetMenuBar(menuBar) # Adding the MenuBar to the Fram content.
+		self.SetMenuBar(menuBar) # Adding the MenuBar to the Frame content.
 
 		# Set the events.
+		self.Bind(wx.EVT_MENU, self.OnNew, menuNew)
 		self.Bind(wx.EVT_MENU, self.OnOpen, menuOpen)
 		self.Bind(wx.EVT_MENU, self.OnSave, menuSave)
-		self.Bind(wx.EVT_MENU, self.OnAbout, menuAbout)
 		self.Bind(wx.EVT_MENU, self.OnExit, menuExit)
 
+		self.Bind(wx.EVT_MENU, self.OnAbout, menuAbout)
+
 		self.Show(True)
+
+	def OnNew(self, e):
+		""" Create a new file """
+		if self.control.GetValue() == "":
+			self.control.SetValue("")
+		else:
+			dlg = wx.MessageDialog(self, "Do you really want to open a new file?", "Confirm New", wx.OK|wx.CANCEL|wx.ICON_QUESTION)
+			result = dlg.ShowModal()
+			dlg.Destroy()
+			if result == wx.ID_OK:
+				self.control.SetValue("")
+
 
 	def OnOpen(self, e):
 		""" Open a file """
@@ -77,7 +91,11 @@ class MainWindow(wx.Frame):
 		dlg.Destroy() # And destroy it when its finished
 
 	def OnExit (self, e):
-		self.Close(True)  # Close the frame
+		dlg = wx.MessageDialog(self, "Do you realy want to quit?", "Confirm Exit", wx.OK|wx.CANCEL|wx.ICON_QUESTION)
+		result = dlg.ShowModal()
+		dlg.Destroy()
+		if result = wx.ID_OK:
+			self.Close(True)  # Close the frame
 
 app = wx.App(False)
 frame = MainWindow(None, "WordSmith")
