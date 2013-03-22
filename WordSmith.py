@@ -94,7 +94,7 @@ class MainWindow(wx.Frame):
 		dlg = wx.MessageDialog(self, "Do you realy want to quit?", "Confirm Exit", wx.OK|wx.CANCEL|wx.ICON_QUESTION)
 		result = dlg.ShowModal()
 		dlg.Destroy()
-		if result = wx.ID_OK:
+		if result == wx.ID_OK:
 			self.Close(True)  # Close the frame
 
 app = wx.App(False)
